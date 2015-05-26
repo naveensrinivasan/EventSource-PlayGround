@@ -102,6 +102,7 @@ namespace EventSourceSamples
         /// </summary>
         private static void DoRequest(string request, int requestId)
         {
+                Task.Delay(TimeSpan.FromSeconds(1)).Wait();
             CustomizedEventSource.Log.RequestStart(requestId, request);
 
             foreach (var phase in new string[] { "initialize", "query_db", "query_webservice", "process_results", "send_results" })
@@ -114,7 +115,7 @@ namespace EventSourceSamples
                     break;
                 }
             }
-            if (requestId % 2 == 0)
+            if (requestId / 3 == 0)
             {
                 Task.Delay(TimeSpan.FromSeconds(5)).Wait();
             }
